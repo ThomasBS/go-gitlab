@@ -80,6 +80,7 @@ func (i Issue) String() string {
 //
 // GitLab API docs: http://doc.gitlab.com/ce/api/issues.html#list-issues
 type ListIssuesOptions struct {
+	ListOptions
 	State   string   `url:"state,omitempty"`
 	Labels  []string `url:"labels,omitempty"`
 	OrderBy string   `url:"order_by,omitempty"`
@@ -109,6 +110,7 @@ func (s *IssuesService) ListIssues(opt *ListIssuesOptions) ([]*Issue, *Response,
 //
 // GitLab API docs: http://doc.gitlab.com/ce/api/issues.html#list-issues
 type ListProjectIssuesOptions struct {
+	ListOptions
 	IID       int      `url:"iid,omitempty"`
 	State     string   `url:"state,omitempty"`
 	Labels    []string `url:"labels,omitempty"`
@@ -117,10 +119,10 @@ type ListProjectIssuesOptions struct {
 	Sort      string   `url:"sort,omitempty"`
 }
 
-// ListProjectIssues gets all issues created by authenticated user. This function
-// takes pagination parameters page and per_page to restrict the list of issues.
+// ListProjectIssues gets a list of project issues. This function accepts
+// pagination parameters page and per_page to return the list of project issues.
 //
-// GitLab API docs: http://doc.gitlab.com/ce/api/issues.html#list-issues
+// GitLab API docs: http://doc.gitlab.com/ce/api/issues.html#list-project-issues
 func (s *IssuesService) ListProjectIssues(
 	pid interface{},
 	opt *ListProjectIssuesOptions) ([]*Issue, *Response, error) {
